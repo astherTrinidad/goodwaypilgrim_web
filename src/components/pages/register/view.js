@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import some from 'lodash/some'
 import { toast } from 'react-toastify'
 
-import { TextInput, Button, FormHeader } from '../../atoms'
+import { TextInput, Button, FormHeader, List } from '../../atoms/'
 import { validateEmail, validatePassword } from '../../../utils'
 import * as api from '../../../api'
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
@@ -110,7 +110,7 @@ const Register = () => {
     <Styles>
       <FormHeader logo={gwpLogo} title='' info='' />
       <form onSubmit={handleSubmit}>
-        <span><a href="login">Entrar</a></span><span><a href="register">Registrarse</a></span>
+        <List/>
         <TextInput
           placeholder='Nombre'
           name='firstName'

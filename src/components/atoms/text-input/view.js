@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Input, Label, ErrorContainer, Container } from './styled'
 
+
+
 const TextInput = ({
   placeholder,
   placeholderColor,

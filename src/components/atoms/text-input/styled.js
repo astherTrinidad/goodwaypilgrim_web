@@ -15,7 +15,7 @@ export const Input = styled.input`
   opacity:0.6;
   padding: ${props => props.padding};
   transition: all 0.4s;
-  width: 100%;
+  width: 80%;
 
   :focus {
     border: 1px solid ${colors.primary};

@@ -27,4 +27,5 @@ export default styled.div`
         background-repeat: no-repeat;
         background-size: cover;
     }
+
 `

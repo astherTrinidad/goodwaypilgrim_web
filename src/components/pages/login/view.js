@@ -4,10 +4,11 @@ import some from 'lodash/some' //verificamos los elementos de un array
 import { toast } from 'react-toastify'
 import PropTypes from 'prop-types';
 
-import { TextInput, Button, FormHeader } from '../../atoms/'
+import { TextInput, Button, FormHeader, List } from '../../atoms/'
 import { validateEmail, validatePassword } from '../../../utils'
 import * as api from '../../../api'
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
+
 
 import Styles from './styled'
 
@@ -32,9 +33,9 @@ export default function Login ({ setToken })  {
   /**
    * Guardamos en un estado local el usuario y la contraseña
    */
-     const [username, setUserName] = useState();
-     const [password, setPassword] = useState();
-  //
+    // const [username, setUserName] = useState();
+    // const [password, setPassword] = useState();
+  
 
 
   const [data, setData] = useState({
@@ -96,8 +97,7 @@ export default function Login ({ setToken })  {
   const handleSubmit = async event => {
     event.preventDefault()
     const token = await loginUser({
-      username,
-      password,
+      data
     });
     setToken(token);
     //*** */
@@ -123,7 +123,7 @@ export default function Login ({ setToken })  {
     <Styles>
       <FormHeader logo={gwpLogo} title='' info='' />
       <form onSubmit={handleSubmit}>
-        <span><a href="login">Entrar</a></span><span><a href="register">Registrarse</a></span>
+      <List/>
         <TextInput
           placeholder='Email'
           name='email'

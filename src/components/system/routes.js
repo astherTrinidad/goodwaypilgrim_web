@@ -1,12 +1,11 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-dom'
 
-import routes from '../../config/routes'
+//import routes from '../../config/routes'
 import Login from '../pages/login/index'
 import Register  from '../pages/register/index'
 import Dashboard from '../pages/dashboard/index'
 import useToken from './useToken';
-
 
 /**
  * Dentro de setToken, guardamos el userToken como argumento para almacenarlo en la sesión
@@ -18,28 +17,52 @@ import useToken from './useToken';
 // }
 
 function Routes(){
-    //Establecemos valores de retorno para token y setToken
-    const {token, setToken} = useToken();
-    
-    //Agregamos la función setToken como prop al Login
-    if(!token) {
-        return <Login setToken={setToken} />
-      }
+
     return (
         <div>
-            <Switch>
-                <Route path = {routes.register}>
-                    <Register/>
-                </Route>
-                {/* <Route path = {routes.login}>
-                    <Login />
-                </Route> */}
-                <Route path = {routes.dashboard}>
-                    <Dashboard />
-                </Route>
-            </Switch>
+            <Router>
+                <Switch>
+                    {/* <Route path="/public">
+                        <PublicPage />
+                    </Route> */}
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/register">
+                        <Register />
+                    </Route>
+                    <PrivateRoute path="/dashboard">
+                        <Dashboard />
+                    </PrivateRoute>
+                </Switch>
+            </Router>
+            
         </div>
     );
 }
+
+
+const PrivateRoute = ({ children, ...rest }) => {
+    //Establecemos valores de retorno para token y setToken
+    const {token} = useToken();
+
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+        token ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  }
 
 export default Routes

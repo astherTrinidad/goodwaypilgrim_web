@@ -5,7 +5,7 @@ import NavUnlisted from './styled'
 const List = ()=> {
     return (
       <NavUnlisted>
-        <NavLink to="/" activeClassName="current" exact>
+        <NavLink to="/login" activeClassName="current" exact>
           <li>Entrar</li>
         </NavLink>
         <NavLink to="/register" activeClassName="current" exact>

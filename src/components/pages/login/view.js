@@ -2,14 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react'
 import isEmpty from 'lodash/isEmpty' //lodash->ayuda a trabajar con arrays.comprueba si un objeto, colleción.. es vacío
 import some from 'lodash/some' //verificamos los elementos de un array
 import { toast } from 'react-toastify'
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom'
 
 import { TextInput, Button, FormHeader, List } from '../../atoms/'
 import { validateEmail, validatePassword } from '../../../utils'
-import * as api from '../../../api'
+// import * as api from '../../../api'
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
 
 import Styles from './styled'
+import useToken from '../../system/useToken'
 
 /**
  * Función para solicitar al servidor con el método POST
@@ -29,7 +30,7 @@ import Styles from './styled'
  }
 
 
-export default function Login({ setToken }) {
+export default function Login() {
   /**
    * Guardamos en un estado local el usuario y la contraseña
    */
@@ -37,7 +38,8 @@ export default function Login({ setToken }) {
     // const [password, setPassword] = useState();
   
    // const Login = ({ setToken }) => {
-
+    const {setToken} = useToken();
+    const history = useHistory();
 
   const [data, setData] = useState({
     email: '',
@@ -94,22 +96,21 @@ export default function Login({ setToken }) {
    */
    const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
-      data
-    });
-    setToken(token);
-  
-    //*** */
-    const inValidForm = some(errors, error => !isEmpty(error))
-    if (!inValidForm) {
-      // eslint-disable-next-line no-console
+    const invalidForm = some(errors, error => !isEmpty(error))
+    if (!invalidForm) {
       console.log({ data })
-
-      setIsfetching(true)
-      await api.register()
-      setIsfetching(false)
-
-      toast.success('Bienvenido/a!!!')
+      try {
+        setIsfetching(true)
+        const token = await loginUser({
+          data
+        });
+        setToken(token);
+        toast.success('Bienvenido/a!!!')
+        history.replace('/dashboard')
+      } catch(e) {
+        setIsfetching(false)
+        toast.error('Ha ocurrido un error')
+      }
     } else {
       setTouched({
         email: true,
@@ -147,14 +148,6 @@ export default function Login({ setToken }) {
       </form>
     </Styles>
   )
-}
-
-/**
- * Verificamos los props de nuestro componente Login de forma dinámica en tiempo de ejecución
- * Mediante una asignación desestructurada para extraer el prop del setToken
- */ 
- Login.propTypes = {
-  setToken: PropTypes.func.isRequired
 }
 
 //export default Login

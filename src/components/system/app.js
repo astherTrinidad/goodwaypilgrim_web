@@ -9,7 +9,6 @@ import { GlobalStyle, theme } from '../../config/styled'
 
 import Routes from './routes'
 
-
 const App = () => (
   <>
     <GlobalStyle />

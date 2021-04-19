@@ -25,7 +25,7 @@ const Register = () => {
     lastName: false,
     email: false,
     password: false,
-    passwordConfirm: '',
+    passwordConfirm: false,
 
   })
 
@@ -145,7 +145,7 @@ const Register = () => {
         <TextInput
           placeholder='Contraseña'
           name='password'
-          type='text'
+          type='password'
           value={data.password}
           touched={touched.password}
           error={errors.password}
@@ -155,14 +155,14 @@ const Register = () => {
         <TextInput
           placeholder='Confirme su contraseña'
           name='passwordConfirm'
-          type='text'
+          type='password'
           value={data.passwordConfirm}
           touched={touched.passwordConfirm}
           error={errors.passwordConfirm}
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <Button label='Enviar' isFetching={isFetching} />
+        <Button label='Enviar' type="submit" isFetching={isFetching} />
       </form>
     </Styles>
   )

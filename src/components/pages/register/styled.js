@@ -15,7 +15,7 @@ justify-content: center;
 padding: 60px 0;
 
     form {
-        max-width: 400px;
+        max-width: 300px;
         margin: 20px;
         text-align: center;
         width: 100%;

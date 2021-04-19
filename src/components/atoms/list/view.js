@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import NavUnlisted from './styled'
 
 
-function List() {
+const List = ()=> {
     return (
       <NavUnlisted>
         <NavLink to="/" activeClassName="current" exact>
@@ -15,6 +15,6 @@ function List() {
     );
   }
   
-  export default List;
+  export default List
   
   

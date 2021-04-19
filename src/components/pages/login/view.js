@@ -9,7 +9,6 @@ import { validateEmail, validatePassword } from '../../../utils'
 import * as api from '../../../api'
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
 
-
 import Styles from './styled'
 
 /**
@@ -22,20 +21,22 @@ import Styles from './styled'
   return fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(credentials),
-  }).then(data => data.json());
-}
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+ }
 
 
-export default function Login ({ setToken })  {
+export default function Login({ setToken }) {
   /**
    * Guardamos en un estado local el usuario y la contraseña
    */
-    // const [username, setUserName] = useState();
+    // const [email, setUserName] = useState();
     // const [password, setPassword] = useState();
   
+   // const Login = ({ setToken }) => {
 
 
   const [data, setData] = useState({
@@ -60,10 +61,6 @@ export default function Login ({ setToken })  {
       email: '',
       password: '',
     }
-
-   // if (!data.firstName) newErrors.firstName = 'Campo obligatorio'
-
-   // if (!data.lastName) newErrors.lastName = 'Campo obligatorio'
 
     if (!data.email) newErrors.email = 'Campo obligatorio'
     else if (!validateEmail(data.email)) newErrors.email = 'Email inválido'
@@ -91,15 +88,17 @@ export default function Login ({ setToken })  {
       [event.target.name]: true,
     })
   }
+  
   /**
    * Creamos un controlador de envío de formulario que llamará a loginUser con user y pass
    */
-  const handleSubmit = async event => {
-    event.preventDefault()
+   const handleSubmit = async e => {
+    e.preventDefault();
     const token = await loginUser({
       data
     });
     setToken(token);
+  
     //*** */
     const inValidForm = some(errors, error => !isEmpty(error))
     if (!inValidForm) {
@@ -131,29 +130,32 @@ export default function Login ({ setToken })  {
           value={data.email}
           touched={touched.email}
           error={errors.email}
-          onChange={handleChange}//{e => setUserName(e.target.value)}//
+          onChange={handleChange}//{e => setUserName(e.target.value)}
           onBlur={handleBlur}
         />
         <TextInput
           placeholder='Contraseña'
           name='password'
-          type='text'
+          type='password'
           value={data.password}
           touched={touched.password}
           error={errors.password}
           onChange={handleChange}//{e => setPassword(e.target.value)}//
           onBlur={handleBlur}
         />
-        <Button label='Enviar' isFetching={isFetching} />
+        <Button label='Enviar' type="submit" isFetching={isFetching} />
       </form>
     </Styles>
   )
 }
+
 /**
  * Verificamos los props de nuestro componente Login de forma dinámica en tiempo de ejecución
  * Mediante una asignación desestructurada para extraer el prop del setToken
- */
+ */ 
  Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+  setToken: PropTypes.func.isRequired
+}
+
 //export default Login
+

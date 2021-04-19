@@ -10,7 +10,6 @@ text-shadow: 2px 2px 3px black;
 
   a {
     text-decoration: none;
-   
   }
 
   li {

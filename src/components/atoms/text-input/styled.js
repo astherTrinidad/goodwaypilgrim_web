@@ -3,7 +3,7 @@ import colors from '../../../assets/colors'
 
 export const Input = styled.input`
   background: ${colors.white};
-  border: ${props => (props.error && props.touched ? `2px solid ${colors.red}` : `2px solid ${colors.primary}`)};
+  border: ${props => (props.error && props.touched ? `2px solid ${colors.red}` : `2px solid ${colors.white}`)};
   border-radius: ${props => props.borderRadius};
   border-top: ${props => props.borderTop};
   font-size: 16px;
@@ -15,10 +15,10 @@ export const Input = styled.input`
   opacity:0.6;
   padding: ${props => props.padding};
   transition: all 0.4s;
-  width: 80%;
+  width: 100%;
 
   :focus {
-    border: 1px solid ${colors.primary};
+    border: 1px solid ${colors.white};
     box-shadow: ${props =>
       props.shadow ? props.shadow : '0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12)'};
       opacity:1;
@@ -63,7 +63,7 @@ export const Container = styled.div`
 `
 
 export const ErrorContainer = styled.div`
-  color: ${colors.red};
+  color: ${colors.white};
   font-size: 11px;
   text-align:right;
   padding: 5px 5px 0;

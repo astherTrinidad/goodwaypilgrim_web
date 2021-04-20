@@ -11,7 +11,7 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
 import Styles from './styled'
 
  async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+  return fetch('http://localhost:8000/pub/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ export default function Login() {
     else if (!validateEmail(data.email)) newErrors.email = 'Email inválido'
 
     if (!data.password) newErrors.password = 'Campo obligatorio'
-    else if (!validatePassword(data.password)) newErrors.password = 'Contraseña debe tener mínimo 8 caracteres'
+    //else if (!validatePassword(data.password)) newErrors.password = 'Contraseña debe tener mínimo 8 caracteres'
 
     setErrors(newErrors)
   }, [data])
@@ -86,15 +86,13 @@ export default function Login() {
       console.log({ data })
       try {
         setIsfetching(true)
-        const token = await loginUser({
-          data
-        });
+        const token = await loginUser(data);
         setToken(token);
         toast.success('Bienvenido/a!!!')
         history.replace('/dashboard')
       } catch(e) {
         setIsfetching(false)
-        toast.error('Ha ocurrido un error')
+        toast.error('Usuario y/o contraseña incorrectos')
       }
     } else {
       setTouched({

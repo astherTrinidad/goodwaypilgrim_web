@@ -41,7 +41,6 @@ function Routes(){
     );
 }
 
-
 const PrivateRoute = ({ children, ...rest }) => {
     //Establecemos valores de retorno para token y setToken
     const {token} = useToken();
@@ -64,5 +63,7 @@ const PrivateRoute = ({ children, ...rest }) => {
       />
     );
   }
+
+  
 
 export default Routes

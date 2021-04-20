@@ -11,6 +11,7 @@ import Routes from './routes'
 
 const App = () => (
   <>
+  <ToastContainer/>
     <GlobalStyle />
     <ThemeProvider theme={theme}>
       <Router>

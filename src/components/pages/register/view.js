@@ -2,16 +2,31 @@ import React, { useState, useEffect, useCallback } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import some from 'lodash/some'
 import { toast } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
+
 
 import { TextInput, Button, FormHeader, List } from '../../atoms/'
 import { validateEmail, validatePassword } from '../../../utils'
-import * as api from '../../../api'
+import useToken from '../../system/useToken'
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
-
-
 import Styles from './styled'
 
+async function loginUser(credentials) {
+  return fetch('http://localhost:8080/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+ }
+
 const Register = () => {
+
+  const {setToken} = useToken();
+  const history = useHistory();
+
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -82,19 +97,23 @@ const Register = () => {
     })
   }
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-
-    const inValidForm = some(errors, error => !isEmpty(error))
-    if (!inValidForm) {
-      // eslint-disable-next-line no-console
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const invalidForm = some(errors, error => !isEmpty(error))
+    if (!invalidForm) {
       console.log({ data })
-
-      setIsfetching(true)
-      await api.register()
-      setIsfetching(false)
-
-      toast.success('Gracias por registrarte!!!')
+      try {
+        setIsfetching(true)
+        const token = await loginUser({
+          data
+        });
+        setToken(token);
+        toast.success('Gracias por registrarte!!!')
+        history.replace('/dashboard')
+      } catch(e) {
+        setIsfetching(false)
+        toast.error('Ha ocurrido un error')
+      }
     } else {
       setTouched({
         firstName: true,

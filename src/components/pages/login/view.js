@@ -6,17 +6,9 @@ import { useHistory } from 'react-router-dom'
 
 import { TextInput, Button, FormHeader, List } from '../../atoms/'
 import { validateEmail, validatePassword } from '../../../utils'
-// import * as api from '../../../api'
-import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
-
-import Styles from './styled'
 import useToken from '../../system/useToken'
-
-/**
- * Función para solicitar al servidor con el método POST
- * Agregamos el servicio directamente en el componente
- * ***** Es conveniente llamar a una API mediante Hook - actualizar - ****
- */
+import gwpLogo from '../../../assets/images/gwp-blanco-logo.png'
+import Styles from './styled'
 
  async function loginUser(credentials) {
   return fetch('http://localhost:8080/login', {
@@ -29,17 +21,10 @@ import useToken from '../../system/useToken'
     .then(data => data.json())
  }
 
-
 export default function Login() {
-  /**
-   * Guardamos en un estado local el usuario y la contraseña
-   */
-    // const [email, setUserName] = useState();
-    // const [password, setPassword] = useState();
-  
-   // const Login = ({ setToken }) => {
-    const {setToken} = useToken();
-    const history = useHistory();
+
+  const {setToken} = useToken();
+  const history = useHistory();
 
   const [data, setData] = useState({
     email: '',
@@ -149,6 +134,3 @@ export default function Login() {
     </Styles>
   )
 }
-
-//export default Login
-
